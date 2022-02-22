@@ -11,6 +11,7 @@ use App\Repository\PropertyRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -47,12 +48,26 @@ class UserController extends AbstractController
      * @Route("/" , name="user_index")
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
 
-        $userList = $this->repository->findAll();
-        return $this->render('user/index.html.twig', ["user_list" => $userList]);
+        $currentPage = $request->get("page", 1);
+        $limit = 2;
+        $total = $this->repository->count([]);
+        $nbPage = ceil($total/$limit);
+        $offset = ($currentPage - 1)*$limit;
+
+        $userList = $this->repository->findBy([],null, $limit, $offset);
+        return $this->render('user/index.html.twig', [
+            "user_list" => $userList,
+            "offset" => $offset,
+            "limit" => $limit,
+            "total" => $total,
+            "page" => $currentPage,
+            "nb_page" => $nbPage,
+        ]);
     }
+
 
     /**
      * @Route("/create", name="user_create")

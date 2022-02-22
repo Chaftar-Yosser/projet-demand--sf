@@ -7,8 +7,29 @@
     </div>
 
     <div class="col-md-8">
-        <h2>Liste des users</h2>
+        <h2>Liste des users ({{ total }})</h2>
+        <br />Limit {{ limit }}
+        <br />offset {{ offset }}
+        <br />page {{ page }}
         <a href="{{ path("user_create") }}" class="btn btn-success" >Créer</a>
+
+        <div>
+            <a href="{{ path("user_index") }}?page=1"> << </a>
+            {% if page>1 %}
+                <a href="{{ path("user_index") }}?page={{ page-1 }}"> < </a>
+            {% endif %}
+            {% for i in 1..nb_page %}
+                {% if i == page %}
+                    {{ i }}
+                {% else %}
+                    <a href="{{ path("user_index") }}?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page<nb_page %}
+                <a href="{{ path("user_index") }}?page={{ page+1 }}"> > </a>
+            {% endif %}
+            <a href="{{ path("user_index") }}?page={{ nb_page }}"> >> </a>
+        </div>
         <table class="table table-striped ">
             <thead>
                 <tr>

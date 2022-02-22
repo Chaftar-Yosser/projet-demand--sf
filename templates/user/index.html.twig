@@ -6,5 +6,31 @@
         <h1>voir nos users</h1>
     </div>
 
+    <div class="col-md-8">
+        <h2>Liste des users</h2>
+        <a href="{{ path("user_create") }}" class="btn btn-success" >Créer</a>
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Groupe</th>
+                    <th>Nom complet</th>
+                    <th>Nom complet2</th>
+                    <th>date de création</th>
+                    <th>date de modification</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in user_list %}
+                    <tr>
+                        {{ include("/user/item.html.twig") }}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
 

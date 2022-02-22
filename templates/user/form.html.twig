@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+
+<div class="form-group">
+    {{ form_row(form.lastname) }}
+</div>
+<div class="form-group">
+    {{ form_row(form.firstname) }}
+</div>
+<div class="form-group">
+    {{ form_row(form.created_at) }}
+</div>
+<div class="form-group">
+    {{ form_row(form.updated_at) }}
+</div>
+{% if button == 'Créer' %}
+<div class="form-group">
+    {{ form_row(form.image) }}
+</div>
+{% endif %}
+<div class="form-group">
+    {{ form_row(form.groupe) }}
+</div>
+
+<input type="submit" class="btn btn-primary" value="{{ button }}"/>
+
+{{ form_end(form) }}

@@ -1,0 +1,11 @@
+<td>{{ user.id }}</td>
+<td>{{ user.groupe ? user.groupe : ""}}</td>
+<td>{{ user.firstname ~ " " ~ user.lastname}}</td>
+<td>{{ user}}</td>
+<td>{{ user.updatedAt | date("d/m/Y")}}</td>
+<td>{{ user.createdAt | date("d/m/Y")}}</td>
+<td>Image</td>
+<td>
+    <a  class="btn btn-info" href={{ path("user_edit", {"id": user.id}) }}> Editer </a>
+    <a  class="btn btn-danger" onclick="return confirm('Etes vous sur ???');" href={{ path("user_delete", {"id": user.id}) }}> Supprimer </a>
+</td>

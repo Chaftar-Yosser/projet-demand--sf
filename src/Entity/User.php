@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
@@ -14,9 +15,11 @@ class User
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(min:5 , max:30)]
     private $firstname;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(min:5 , max:30)]
     private $lastname;
 
     #[ORM\Column(type: 'date')]
@@ -107,5 +110,13 @@ class User
         $this->groupe = $groupe;
 
         return $this;
+    }
+
+    public function getFullname(){
+        return $this->firstname." ".$this->lastname;
+    }
+
+    public function __toString(){
+        return $this->getFullname();
     }
 }
